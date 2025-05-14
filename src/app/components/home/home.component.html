@@ -1,0 +1,56 @@
+<div class="home-container">
+  <!-- Encabezado con logo -->
+  <header class="header">
+    <img src="../../../assets/img/logoasocebu.png" alt="Logo" class="logo" />
+    <img src="../../../assets/img/banner-subastas.png" alt="Banner" class="banner" />
+  </header>
+
+  <h1>Lista de Tareas</h1>
+
+  <!-- Formulario para agregar una nueva tarea -->
+  <div class="add-task">
+    <input
+      type="text"
+      [(ngModel)]="newTaskTitle"
+      placeholder="Ingrese la nueva tarea"
+      class="task-input"
+    />
+    <button (click)="addTask()" class="add-task-btn">Agregar Tarea</button>
+  </div>
+
+  <!-- Lista de tareas -->
+  <div class="task-list">
+    <div *ngFor="let task of tasks" class="task-item" [class.completed]="task.completed">
+      <div class="task-info">
+        <input
+          type="checkbox"
+          [checked]="task.completed"
+          (change)="toggleTask(task)"
+          class="task-checkbox"
+        />
+        <span class="task-title">{{ task.title }}</span>
+      </div>
+      <div class="task-actions">
+        <button (click)="editTask(task)" class="edit-btn">Editar</button>
+        <button *ngIf="task.id !== undefined" (click)="deleteTask(task.id!)" class="delete-btn">Eliminar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de edición -->
+  <div class="modal" *ngIf="editingTask">
+    <div class="modal-content">
+      <h2>Editar Tarea</h2>
+      <input [(ngModel)]="editingTask.title" class="modal-input" />
+      <div class="modal-buttons">
+        <button (click)="saveEdit()" class="save-btn">Guardar</button>
+        <button (click)="cancelEdit()" class="cancel-btn">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2025 Mi Aplicación de Tareas. Todos los derechos reservados.</p>
+  </footer>
+</div>
